@@ -1,0 +1,12 @@
+@import './base.css';
+
+/* Global styles */ 
+@theme {
+  --color-blue-900: #2b3743;
+  --color-blue-950: #212e37;
+  --color-grey-950: hsl(200, 15%, 8%);
+  --color-grey-400: hsl(0, 0%, 50%);
+  --color-grey-50: hsl(0, 0%, 99%);
+  --color-white: hsl(0, 100%, 100%);
+}
+
