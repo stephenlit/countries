@@ -19,7 +19,7 @@ export const useCountryStore = defineStore('countries', () => {
         population: country.population,
         region: country.region,
         capital: country.capital?.[0] ?? '',
-        flag: country.flags.svg,
+        flag: country.flags.png,
         cca3: country.cca3
       }))
     } catch (err) {

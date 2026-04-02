@@ -23,8 +23,23 @@ function prevPage() {
 
 <template>
   <main>
-    <ul class="flex gap-2 flex-wrap items-center justify-center w-full">
-      <CountryCard v-for="country in paginated" :countries="country" />
+    <ul class="flex gap-15 flex-wrap items-center justify-center w-full">
+      <CountryCard v-for="country in paginated" :key="country.name" :countries="country" />
     </ul>
+    <div class="mt-10 flex items-center justify-center gap-4">
+      <button
+        class="rounded-md bg-blue-900 px-5 py-2.5 text-sm font-semibold text-grey-50 shadow-md transition hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-grey-50/60 disabled:cursor-not-allowed disabled:opacity-40"
+        @click="prevPage"
+        :disabled="currentPage === 1"
+      >
+        Previous
+      </button>
+      <button
+        class="rounded-md bg-blue-900 px-5 py-2.5 text-sm font-semibold text-grey-50 shadow-md transition hover:bg-blue-950 focus:outline-none focus:ring-2 focus:ring-grey-50/60"
+        @click="nextPage"
+      >
+        Next
+      </button>
+    </div>
   </main>
 </template>
