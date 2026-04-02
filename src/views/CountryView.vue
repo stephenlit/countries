@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { onMounted } from "vue";
 import { useRoute } from "vue-router";
-import { useCountryStore } from "@/stores/countryStore";
+import { useCountry } from "@/composables/useCountry";
 
 const route = useRoute();
-const store = useCountryStore();
+const { countries, loading, error, fetchCountry } = useCountry();
+const country = countries;
 
-const country = computed(() => {
+onMounted(() => {
   const name = route.params.name as string;
-  return store.countries.find((item) => item.name === name);
+  fetchCountry(name);
 });
 </script>
 
@@ -21,14 +22,24 @@ const country = computed(() => {
       Back
     </RouterLink>
 
-    <section v-if="country" class="mt-8 rounded-lg bg-blue-900 p-6 text-grey-50 shadow-lg">
-      <div class="w-full overflow-hidden rounded-md bg-blue-950">
-        <img :src="country.flag" :alt="`${country.name} flag`" class="h-52 w-full object-contain" />
+    <div v-if="loading" class="mt-8 text-grey-50">Loading...</div>
+    <p v-else-if="error" class="mt-8 text-base text-red-400">{{ error }}</p>
+
+    <section v-else-if="country[0]" class="mt-8 rounded-lg p-6 text-grey-50 flex gap-10">
+      <div class="w-100 shrink-0">
+        <img
+          :src="country[0].flag"
+          :alt="`${country[0].name} flag`"
+          class="h-52 w-full object-contain"
+        />
       </div>
-      <h1 class="mt-6 text-3xl font-bold">{{ country.name }}</h1>
-      <p class="mt-3 text-base">Population: {{ country.population.toLocaleString() }}</p>
-      <p class="text-base">Region: {{ country.region }}</p>
-      <p class="text-base">Capital: {{ country.capital || "N/A" }}</p>
+      <div>
+        <h1 class="mt-6 text-lg text-white font-bold">{{ country[0].name }}</h1>
+        <h4 class="mt-1 text-base">Native Name: {{ country[0].nativeName }}</h4>
+        <p class="mt-3 text-base">Population: {{ country[0].population.toLocaleString() }}</p>
+        <p class="text-base">Region: {{ country[0].region }}</p>
+        <p class="text-base">Capital: {{ country[0].capital || "N/A" }}</p>
+      </div>
     </section>
 
     <p v-else class="mt-8 text-base">Country not found.</p>
