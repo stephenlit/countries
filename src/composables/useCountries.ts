@@ -1,8 +1,8 @@
 import {ref, onMounted} from 'vue'
-import type {Country} from '@/types/country'
+import type {Countries} from '@/types/countryCard'
 
 export function useCountries() {
-    const countries = ref<Country[]>([])
+    const countries = ref<Countries[]>([])
     const loading = ref(false)
     const error = ref<string | null>(null)
 
@@ -10,28 +10,20 @@ export function useCountries() {
         loading.value = true
 
         try {
-            const response = await fetch('https://restcountries.com/v3/all')
-            console.log(response.status)
-            const data = await response.json()
-            console.log(data)
-            countries.value = data.map((country: Country) => ({
+            const response = await fetch('https://restcountries.com/v3.1/all?fields=name,population,region,capital,flags')
+            const data = await response.json() 
+            countries.value = data.map((country: Countries) => ({
                 name: country.name,
-                nativeName: country.nativeName,
                 population: country.population,
                 region: country.region,
-                subregion: country.subregion,
                 capital: country.capital,
                 flag: country.flag,
-                tld: country.tld[0],
-                currencies: country.currencies,
-                languages: Array.isArray(country.languages) ? country.languages.map((lang: any) => lang.name).join(', ') : country.languages,
-                borders: country.borders
             }))
         } catch (err) {
             error.value = (err as Error).message
         } finally {
             loading.value = false
-        }
+        }  
     }
 
     onMounted(fetchCountries)

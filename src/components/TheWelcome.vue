@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCountries } from "@/composables/useCountries";
+import { useCountries } from "@/composables/useCountry";
 
 const { countries, loading, error } = useCountries();
 </script>
