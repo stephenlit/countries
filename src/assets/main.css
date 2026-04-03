@@ -1,6 +1,6 @@
-@import './base.css';
+@import "./base.css";
 
-/* Global styles */ 
+/* Global styles */
 @theme {
   --font-sans: "Nunito Sans", sans-serif;
   --color-blue-900: #2b3743;
@@ -13,6 +13,7 @@
 
 body {
   font-family: "Nunito Sans", sans-serif;
+  background-color: var(--color-blue-950);
 }
 
 @layer base {
@@ -20,6 +21,3 @@ body {
     @apply text-grey-50;
   }
 }
-
-
-
