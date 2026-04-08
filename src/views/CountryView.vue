@@ -63,7 +63,7 @@ watch(
           <template v-if="currentCountry.borders.length">
             <RouterLink
               :to="{ name: 'country', params: { name: border } }"
-              class="rounded-md bg-blue-900 px-5 py-1.5 text-xs font-semibold text-grey-400 shadow-md transition"
+              class="rounded-md bg-blue-900 px-5 py-1.5 text-xs font-semibold hover:text-blue-950 text-grey-400 shadow-md transition"
               v-for="border in currentCountry.borders"
               :key="border"
               >{{ border }}</RouterLink
