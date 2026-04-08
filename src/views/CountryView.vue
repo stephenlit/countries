@@ -1,43 +1,77 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useCountry } from "@/composables/useCountry";
+import type { Countries } from "@/types/countryCard";
+const props = defineProps<{
+  countries: Countries;
+}>();
 
 const route = useRoute();
 const { countries, loading, error, fetchCountry } = useCountry();
-const country = countries;
+const currentCountry = computed(() => countries.value[0] ?? null);
 
 onMounted(() => {
   const name = route.params.name as string;
   fetchCountry(name);
 });
+
+//re-fetch country when route changes
+watch(
+  () => route.params.name,
+  (newName) => {
+    fetchCountry(newName as string);
+  },
+);
 </script>
 
 <template>
-  <div v-if="loading" class="mt-8 text-grey-50">Loading...</div>
-  <p v-else-if="error" class="mt-8 text-base text-red-400">{{ error }}</p>
-
-  <section v-else-if="country[0]" class="h-full px-40 mt-8 rounded-lg text-grey-50">
-    <div class="mb-6">
-      <RouterLink
-        to="/"
-        class="inline-block rounded-md bg-blue-900 px-4 py-2 text-sm font-semibold text-grey-50 shadow-md transition hover:bg-blue-950"
-      >
-        Back
-      </RouterLink>
-    </div>
-    <div class="flex flex-wrap">
-      <img :src="country[0].flag" :alt="`${country[0].name} flag`" class="w-1/2 shrink-0" />
-
-      <div class="w-1/2 ml-6">
-        <h1 class="mt-6 text-lg text-white font-bold">{{ country[0].name }}</h1>
-        <h4 class="mt-1 text-base">Native Name: {{ country[0].nativeName }}</h4>
-        <p class="mt-3 text-base">Population: {{ country[0].population.toLocaleString() }}</p>
-        <p class="text-base">Region: {{ country[0].region }}</p>
-        <p class="text-base">Capital: {{ country[0].capital || "N/A" }}</p>
+  <div class="grid grid-cols-1 md:grid-cols-[auto_auto_auto]">
+    <div class="md:col-span-3" v-if="loading">Loading...</div>
+    <div class="md:col-span-3" v-if="error">{{ error }}</div>
+    <RouterLink
+      to="/"
+      class="mb-6 ml-4 md:col-span-3 w-fit rounded-md bg-blue-900 px-5 py-1.5 font-semibold text-grey-50 shadow-md transition"
+    >
+      Back
+    </RouterLink>
+    <template v-if="currentCountry">
+      <div class="md:row-span-2">
+        <img
+          class="w-full px-4 md:w-[400px] md:shrink-0"
+          :src="currentCountry.flag"
+          :alt="`${currentCountry.name} flag`"
+        />
       </div>
-    </div>
-  </section>
-
-  <p v-else class="mt-8 text-base">Country not found.</p>
+      <div class="px-6">
+        <h1 class="text-2xl font-bold mb-6 text-white">{{ currentCountry.name }}</h1>
+        <h4 class="text-gray-400 tracking-wide">Native Name: {{ currentCountry.nativeName }}</h4>
+        <p class="text-gray-400">Population: {{ currentCountry.population.toLocaleString() }}</p>
+        <p class="text-gray-400">Region: {{ currentCountry.region }}</p>
+        <p class="text-gray-400">Sub Region: {{ currentCountry.subregion }}</p>
+        <p class="text-gray-400">Capital: {{ currentCountry.capital || "N/A" }}</p>
+      </div>
+      <div class="mt-13 px-6">
+        <p class="text-gray-400">Top Level Domain: {{ currentCountry.tld }}</p>
+        <p class="text-gray-400">Currencies: {{ currentCountry.currencies }}</p>
+        <p class="text-gray-400">Languages: {{ currentCountry.languages }}</p>
+      </div>
+      <!-- Now a direct child of the grid -->
+      <div class="md:col-span-2 md:col-start-2 px-6 flex flex-col gap-2 text-gray-400">
+        <span>Border Countries:</span>
+        <div class="flex flex-wrap gap-2">
+          <template v-if="currentCountry.borders.length">
+            <RouterLink
+              :to="{ name: 'country', params: { name: border } }"
+              class="rounded-md bg-blue-900 px-5 py-1.5 text-xs font-semibold text-grey-400 shadow-md transition"
+              v-for="border in currentCountry.borders"
+              :key="border"
+              >{{ border }}</RouterLink
+            >
+          </template>
+          <span v-else>Border Countries: No Border Countries</span>
+        </div>
+      </div>
+    </template>
+  </div>
 </template>

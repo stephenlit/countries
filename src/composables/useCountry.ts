@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import type { Country } from "@/types/country";
+import { useBorderCountries } from "@/composables/useBorderCountries";
 
 export function useCountry() {
   const countries = ref<Country[]>([]);
@@ -25,7 +26,7 @@ export function useCountry() {
         region: country.region,
         subregion: country.subregion,
         capital: country.capital?.[0] ?? "",
-        flag: country.flags.svg,
+        flag: country.flags.png,
         tld: country.tld?.[0] ?? "",
         currencies: Object.values(country.currencies)
           .map((c: any) => c.name)
@@ -33,6 +34,14 @@ export function useCountry() {
         languages: Object.values(country.languages).join(", "),
         borders: country.borders ?? [],
       }));
+
+      //Replace border code with names
+      const { fetchBorderNames } = useBorderCountries();
+      for (const country of countries.value) {
+        if (country.borders.length) {
+          country.borders = await fetchBorderNames(country.borders);
+        }
+      }
     } catch (err) {
       error.value = (err as Error).message;
     } finally {

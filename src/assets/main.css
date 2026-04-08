@@ -1,5 +1,9 @@
 @import "./base.css";
 
+body {
+  color: hsl(0, 100%, 100%);
+}
+
 /* Global styles */
 @theme {
   --font-sans: "Nunito Sans", sans-serif;
