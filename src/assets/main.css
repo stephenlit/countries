@@ -1,23 +1,39 @@
 @import "./base.css";
 
-body {
-  color: hsl(0, 100%, 100%);
-}
-
 /* Global styles */
 @theme {
   --font-sans: "Nunito Sans", sans-serif;
-  --color-blue-900: #2b3743;
-  --color-blue-950: #212e37;
-  --color-grey-950: hsl(200, 15%, 8%);
-  --color-grey-400: hsl(0, 0%, 50%);
-  --color-grey-50: hsl(0, 0%, 99%);
-  --color-white: hsl(0, 100%, 100%);
+  --color-blue-900: var(--theme-blue-900);
+  --color-blue-950: var(--theme-blue-950);
+  --color-grey-950: var(--theme-grey-950);
+  --color-grey-400: var(--theme-grey-400);
+  --color-grey-50: var(--theme-grey-50);
+  --color-white: var(--theme-white);
+}
+
+:root {
+  --theme-blue-900: hsl(0, 0%, 100%);
+  --theme-blue-950: hsl(210, 35%, 96%);
+ --theme-grey-950:  hsl(200, 15%, 8%);
+  --theme-grey-400: hsl(0, 0%, 0%);
+  --theme-grey-50: hsl(200, 15%, 8%);
+  --theme-white: hsl(200, 15%, 8%);
+}
+
+.dark {
+  --theme-blue-900: #2b3743;
+  --theme-blue-950: #212e37;
+  --theme-grey-950: hsl(200, 15%, 8%);
+  --theme-grey-400: hsl(0, 0%, 65%);
+  --theme-grey-50: hsl(0, 0%, 99%);
+  --theme-white: hsl(0, 100%, 100%);
 }
 
 body {
   font-family: "Nunito Sans", sans-serif;
-  background-color: var(--color-blue-950);
+  color: var(--color-white);
+  background-color: var(--color-blue-900);
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 @layer base {
