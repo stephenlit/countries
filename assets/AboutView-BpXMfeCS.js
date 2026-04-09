@@ -1,0 +1,1 @@
+import{i as e,s as t,v as n}from"./runtime-core.esm-bundler-ByhnAAWI.js";var r=(e,t)=>{let n=e.__vccOpts||e;for(let[e,r]of t)n[e]=r;return n},i={},a={class:`about`};function o(r,i){return n(),t(`div`,a,[...i[0]||=[e(`h1`,null,`This is an about page`,-1)]])}var s=r(i,[[`render`,o]]);export{s as default};

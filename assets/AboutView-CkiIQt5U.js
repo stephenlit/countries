@@ -1,1 +1,0 @@
-import{i as e,s as t,v as n}from"./runtime-core.esm-bundler-ByhnAAWI.js";import{t as r}from"./_plugin-vue_export-helper-B80Cc4Ui.js";var i={},a={class:`about`};function o(r,i){return n(),t(`div`,a,[...i[0]||=[e(`h1`,null,`This is an about page`,-1)]])}var s=r(i,[[`render`,o]]);export{s as default};
