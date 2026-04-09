@@ -29,8 +29,19 @@ watch(
   <div class="grid grid-cols-1 md:grid-cols-[auto_auto_auto]">
     <RouterLink
       to="/"
-      class="mb-6 ml-4 md:col-span-3 w-fit rounded-md bg-blue-900 px-5 py-1.5 font-semibold text-grey-50 shadow-md transition"
+      class="mb-6 ml-4 md:col-span-3 inline-flex items-center gap-2 w-fit rounded-md bg-blue-900 px-5 py-1.5 font-semibold text-grey-50 shadow-md transition"
     >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="h-4 w-4"
+        aria-hidden="true"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
+      </svg>
       Back
     </RouterLink>
     <template v-if="currentCountry">
