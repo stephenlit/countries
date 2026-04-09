@@ -54,20 +54,37 @@ watch(
       </div>
       <div class="px-6">
         <h1 class="text-2xl font-bold mb-6 text-white">{{ currentCountry.name }}</h1>
-        <h4 class="text-grey-400 tracking-wide">Native Name: {{ currentCountry.nativeName }}</h4>
-        <p class="text-grey-400">Population: {{ currentCountry.population.toLocaleString() }}</p>
-        <p class="text-grey-400">Region: {{ currentCountry.region }}</p>
-        <p class="text-grey-400">Sub Region: {{ currentCountry.subregion }}</p>
-        <p class="text-grey-400">Capital: {{ currentCountry.capital || "N/A" }}</p>
+        <h4 class="text-white tracking-wide">
+          Native Name: <span class="text-grey-400">{{ currentCountry.nativeName }}</span>
+        </h4>
+        <p class="text-white">
+          Population:
+          <span class="text-grey-400">{{ currentCountry.population.toLocaleString() }}</span>
+        </p>
+        <p class="text-white">
+          Region: <span class="text-grey-400">{{ currentCountry.region }}</span>
+        </p>
+        <p class="text-white">
+          Sub Region: <span class="text-grey-400">{{ currentCountry.subregion }}</span>
+        </p>
+        <p class="text-white">
+          Capital: <span class="text-grey-400">{{ currentCountry.capital || "N/A" }}</span>
+        </p>
       </div>
       <div class="mt-13 px-6">
-        <p class="text-grey-400">Top Level Domain: {{ currentCountry.tld }}</p>
-        <p class="text-grey-400">Currencies: {{ currentCountry.currencies }}</p>
-        <p class="text-grey-400">Languages: {{ currentCountry.languages }}</p>
+        <p class="text-white">
+          Top Level Domain: <span class="text-grey-400">{{ currentCountry.tld }}</span>
+        </p>
+        <p class="text-white">
+          Currencies: <span class="text-grey-400">{{ currentCountry.currencies }}</span>
+        </p>
+        <p class="text-white">
+          Languages: <span class="text-grey-400">{{ currentCountry.languages }}</span>
+        </p>
       </div>
       <!-- Now a direct child of the grid -->
       <div class="md:col-span-2 md:col-start-2 px-6 flex flex-col gap-2 text-grey-400">
-        <span>Border Countries:</span>
+        <span class="text-white">Border Countries:</span>
         <div class="flex flex-wrap gap-2">
           <template v-if="currentCountry.borders.length">
             <RouterLink
@@ -78,7 +95,9 @@ watch(
               >{{ border }}</RouterLink
             >
           </template>
-          <span v-else>Border Countries: No Border Countries</span>
+          <span v-else class="text-white"
+            >Border Countries: <span class="text-grey-400">No Border Countries</span></span
+          >
         </div>
       </div>
       <div class="md:col-span-3 mx-auto" v-if="loading">Loading...</div>

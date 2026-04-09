@@ -12,10 +12,10 @@
 }
 
 :root {
-  --theme-blue-900: hsl(0, 0%, 100%);
+  --theme-blue-900: hsl(0, 41%, 97%);
   --theme-blue-950: hsl(210, 35%, 96%);
  --theme-grey-950:  hsl(200, 15%, 8%);
-  --theme-grey-400: hsl(0, 0%, 0%);
+  --theme-grey-400: hsl(0, 0%, 65%);
   --theme-grey-50: hsl(200, 15%, 8%);
   --theme-white: hsl(200, 15%, 8%);
 }
